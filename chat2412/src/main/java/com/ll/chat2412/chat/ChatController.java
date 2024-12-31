@@ -31,8 +31,6 @@ public class ChatController {
     @ResponseBody
     public RsData<MessageResponse> messages(MessagesRequest messagesRequest) {
         List<ChatMessage> messages = chatMessages;
-        List<ChatMessage> result = new ArrayList<>();
-        int index = -1;
 
         // stream을 사용하면
         // 계층형으로 코드를 작성할 수 있다.
@@ -40,13 +38,23 @@ public class ChatController {
         if(messagesRequest.fromId() != null){
             // 해당 번호의 채팅메세지가 전체 리스트에서의 배열 인덱스 번호를 구한다.
             // 없다면 -1
-            index = IntStream.range(0, messages.size()).filter(i -> messages.get(i).getId() == messagesRequest.fromId()).findFirst().orElse(-1);
+            int index = IntStream.range(0, messages.size())
+                    .filter(i -> chatMessages.get(i).getId() == messagesRequest.fromId())
+                    .findFirst()
+                    .orElse(-1);
 
-            // 만약에 index가 있다면, 0번부터 index번 까지 제거한 리스트를 만든다.
-            result = messages.subList(index+1, messages.size());
-        } else {
-            result = messages;
+
+            // index이후의 채팅메세지들만 리스트로 가져온다.
+            if(index != -1){
+                messages = messages.subList(index+1, messages.size());
+            }
         }
-        return new RsData<>("200", "메세지가 조회되었습니다.", new MessageResponse(result, chatMessages.size()));
+
+        return new RsData<>("200", "메세지가 조회 성공", new MessageResponse(messages, chatMessages.size()));
+    }
+
+    @GetMapping("room")
+    public String room(){
+        return "chat/room";
     }
 }
