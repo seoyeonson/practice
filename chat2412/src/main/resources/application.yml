@@ -9,3 +9,6 @@ spring:
       enabled: true
     restart:
       enabled: true
+  jpa:
+    open-in-view:
+      exclude-patterns: /chat/mewssages, /chat/writeMessages
