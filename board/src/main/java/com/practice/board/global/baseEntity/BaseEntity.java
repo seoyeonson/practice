@@ -29,5 +29,5 @@ public class BaseEntity {
 
     @CreatedDate
     @Getter
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 }

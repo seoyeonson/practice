@@ -20,7 +20,7 @@ import static lombok.AccessLevel.PROTECTED;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Question extends BaseEntity {
-    private String question;
+    private String subject;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
