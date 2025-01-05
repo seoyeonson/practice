@@ -352,6 +352,22 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij,gradle,macos,windows,git,java,maven,eclipse,visualstudiocode,netbeans
 
 application-secret.yml
