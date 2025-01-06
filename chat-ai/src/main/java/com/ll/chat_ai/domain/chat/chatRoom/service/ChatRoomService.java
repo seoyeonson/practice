@@ -12,7 +12,20 @@ import java.util.List;
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
 
-    public List<ChatRoom> getChatRoom(){
+    public List<ChatRoom> getAll() {
         return chatRoomRepository.findAll();
+    }
+
+    public ChatRoom create(String name) {
+        ChatRoom chatRoom = ChatRoom.builder()
+                .name(name)
+                .build();
+        chatRoomRepository.save(chatRoom);
+        return chatRoom;
+    }
+
+        public ChatRoom getChatRoom(Long roomId) {
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId).get();
+        return chatRoom;
     }
 }
