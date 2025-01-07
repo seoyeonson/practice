@@ -57,9 +57,9 @@ public class BaseEntity {
 
     @CreatedDate
     @Getter
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 
     @LastModifiedDate
     @Getter
-    private LocalDateTime modifiedDate;
+    private LocalDateTime modifyDate;
 }

@@ -22,7 +22,7 @@ public class NodProd {
             ChatRoom chatRoom3 = chatRoomService.create("room3");
 
             IntStream.rangeClosed(1, 100).forEach(i->{
-                chatMessageService.createChatMessage(chatRoom1, "홍길동", "메세지" + i);
+                chatMessageService.createChatMessage(chatRoom2, "홍길동", "메세지" + i);
             });
 
         };

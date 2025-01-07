@@ -1,11 +1,9 @@
 package com.ll.chat_ai.domain.chat.chatMessage.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ll.chat_ai.domain.chat.chatRoom.entity.ChatRoom;
 import com.ll.chat_ai.global.jpa.BaseEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -27,6 +25,8 @@ public class ChatMessage extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @JoinColumn(name = "chat_room_id")
+    @JsonIgnore
     private ChatRoom chatRoom;
 }
