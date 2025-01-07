@@ -1,4 +1,4 @@
-package com.ll.jpa2501.post;
+package com.ll.jpa2501.domain.post;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
