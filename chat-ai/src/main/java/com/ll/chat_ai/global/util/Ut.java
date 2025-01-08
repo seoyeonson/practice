@@ -1,4 +1,4 @@
-package com.ll.chat_ai.global;
+package com.ll.chat_ai.global.util;
 
 import lombok.SneakyThrows;
 

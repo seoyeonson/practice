@@ -1,5 +1,6 @@
 package com.ll.chat_ai.domain.article.article.service;
 
+import com.ll.chat_ai.domain.article.articleComment.entity.ArticleComment;
 import com.ll.chat_ai.domain.article.article.entity.Article;
 import com.ll.chat_ai.domain.article.article.respository.ArticleRepository;
 import com.ll.chat_ai.domain.member.member.entity.Member;
@@ -30,5 +31,15 @@ public class ArticleService {
 
     public Optional<Article> findById(long id) {
         return articleRepository.findById(id);
+    }
+
+    public void modify(Article article, String title, String body) {
+        article.setTitle(title);
+        article.setBody(body);
+        articleRepository.save(article);
+    }
+
+    public void modifyComment(ArticleComment comment, String body) {
+        comment.setBody(body);
     }
 }

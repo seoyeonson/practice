@@ -33,16 +33,17 @@ public class NodProd {
                 chatMessageService.createChatMessage(chatRoom2, "홍길동", "메세지" + i);
             });
 
+            // 회원 추가
             Member member1 = memberService.join("user1", "1234").getData();
             Member member2 = memberService.join("user2", "1234").getData();
             Member member3 = memberService.join("user3", "1234").getData();
 
+            // 글 작성
             Article article1 = articleService.write(member1.getId(), "제목1", "내용1").getData();
             Article article2 = articleService.write(member1.getId(), "제목2", "내용2").getData();
 
             Article article3 = articleService.write(member2.getId(), "제목3", "내용3").getData();
             Article article4 = articleService.write(member2.getId(), "제목4", "내용4").getData();
-
         };
     }
 }
