@@ -9,18 +9,20 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @AllArgsConstructor(access = PROTECTED)
 @NoArgsConstructor(access = PROTECTED)
-@ToString(callSuper = true)
 @Getter @Setter
 @SuperBuilder
+@ToString(callSuper = true)
 public class Member extends BaseEntity {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = ALL,orphanRemoval = true)
+    @ToString.Exclude
     private List<Article> articles;
 }

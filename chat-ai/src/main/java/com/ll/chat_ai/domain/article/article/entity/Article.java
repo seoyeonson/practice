@@ -5,6 +5,7 @@ import com.ll.chat_ai.domain.article.articleTag.entity.ArticleTag;
 import com.ll.chat_ai.domain.member.member.entity.Member;
 import com.ll.chat_ai.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -25,9 +26,9 @@ import static lombok.AccessLevel.PROTECTED;
 @ToString(callSuper = true)
 public class Article extends BaseEntity {
     private String title;
-    private String body;
+    private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member author;
 
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
@@ -35,7 +36,9 @@ public class Article extends BaseEntity {
     @ToString.Exclude
     private List<ArticleComment> comments = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true) // ferch = FetchType.LAZY
+    @Builder.Default // 순환 참조 방지
+    @ToString.Exclude
     private List<ArticleTag> tags = new ArrayList<>();
 
 
@@ -57,5 +60,15 @@ public class Article extends BaseEntity {
                 .map(ArticleTag::getName)
                 .reduce((a, b) -> "#" + a + " #" + b)
                 .orElse("");
+    }
+
+    public void addTag(String articleTag) {
+        tags.add(ArticleTag.builder().article(this).name(articleTag).build());
+    }
+
+    public void addTags(String... tagContents) {
+        for (String tagContent : tagContents) {
+            addTag(tagContent);
+        }
     }
 }
