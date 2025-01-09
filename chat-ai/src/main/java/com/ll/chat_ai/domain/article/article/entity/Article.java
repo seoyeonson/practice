@@ -57,13 +57,13 @@ public class Article extends BaseEntity {
 
     public String getTagsStr() {
         return tags.stream()
-                .map(ArticleTag::getName)
+                .map(ArticleTag::getContent)
                 .reduce((a, b) -> "#" + a + " #" + b)
                 .orElse("");
     }
 
     public void addTag(String articleTag) {
-        tags.add(ArticleTag.builder().article(this).name(articleTag).build());
+        tags.add(ArticleTag.builder().article(this).content(articleTag).build());
     }
 
     public void addTags(String... tagContents) {

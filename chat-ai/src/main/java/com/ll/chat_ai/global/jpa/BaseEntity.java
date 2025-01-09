@@ -40,7 +40,7 @@ import static lombok.AccessLevel.PROTECTED;
 @SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class BaseEntity {
     // GenerationType
     // 엔티티의 기본 키(primary key) 값이 어떻게 생성될지에 대한 전략을 지정하는 열거형
