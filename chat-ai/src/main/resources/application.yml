@@ -1,21 +1,23 @@
 server:
-  port: 8070
+  port: 8090
 spring:
+  thymeleaf:
+    cache: false
   profiles:
     active: dev
     include: secret
   logging:
     level:
-      com.ll.chat_ai: DEBUG
+      com.ll.chatApp: DEBUG
       org.hibernate.orm.jdbc.bind: TRACE
       org.hibernate.orm.jdbc.extract: TRACE
       org.springframework.transaction.interceptor: TRACE
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
       hibernate:
-        ddl-auto: create
-      properties:
-        hibernate:
-          show-sql: true
-          format_sql: true
-          user_sql_comments: true
-          defualt_batch_fetch_size: 100
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
