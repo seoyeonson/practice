@@ -25,13 +25,13 @@ public class ApiV1ChatMessageController {
             @PathVariable("roomId") Long roomId,
             @RequestParam(value = "afterChatMessageId", defaultValue = "-1") long afterChatMessageId){
         List<ChatMessage> messages = chatMessageService.getMessagesAndafterChatMessageId(roomId, afterChatMessageId);
-        return RsData.of("200", "메세지 조회 완료", new ResponseGetMessageList(messages));
+        return new RsData<>("200", "메세지 조회 완료", new ResponseGetMessageList(messages));
     }
 
     @PostMapping
     public RsData<ResponseGetMessage> createChatMessages(@PathVariable("roomId") Long roomId, @RequestBody RequestCreateMessage createMessage){
         ChatRoom chatRoom = chatRoomService.getChatRoom(roomId);
         ChatMessage chatMessage = chatMessageService.createChatMessage(chatRoom, createMessage.getWriterName(), createMessage.getContent());
-        return RsData.of("200", "메세지 작성 완료", new ResponseGetMessage(chatMessage.getId()));
+        return new RsData<>("200", "메세지 작성 완료", new ResponseGetMessage(chatMessage.getId()));
     }
 }

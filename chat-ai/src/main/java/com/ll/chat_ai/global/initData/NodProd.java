@@ -39,9 +39,9 @@ public class NodProd {
                 });
 
                 // 회원 추가
-                Member member1 = memberService.join("user1", "1234").getData();
-                Member member2 = memberService.join("user2", "1234").getData();
-                Member member3 = memberService.join("user3", "1234").getData();
+                Member member1 = memberService.join("user1", "1234");
+                Member member2 = memberService.join("user2", "1234");
+                Member member3 = memberService.join("user3", "1234");
 
                 // 글 작성
                 Article article1 = articleService.write("제목1", "내용1");
