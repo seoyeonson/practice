@@ -7,8 +7,6 @@ import com.ll.chat_ai.domain.article.articleTag.entity.ArticleTag;
 import com.ll.chat_ai.domain.article.articleTag.service.ArticleTagService;
 import com.ll.chat_ai.domain.member.member.entity.Member;
 import com.ll.chat_ai.domain.member.member.service.MemberService;
-import com.ll.chat_ai.global.rsData.RsData;
-import com.ll.chat_ai.global.util.Ut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,7 @@ class ArticleServiceTest {
     @DisplayName("글 쓰기")
     @Test
     void t1() {
-        RsData<Article> writeRs = articleService.write(1, "제목", "내용");
-        Article article = writeRs.getData();
+        Article article = articleService.write("제목", "내용");
 
         assertThat(article.getId()).isGreaterThan(0L);
     }
@@ -61,7 +58,7 @@ class ArticleServiceTest {
     void t4() {
         Article article = articleService.findById(1L).get();
 
-        Ut.thread.sleep(10000);
+//        Ut.thread.sleep(10000);
 
         articleService.modify(article, "수정된 제목", "수정된 내용");
 
