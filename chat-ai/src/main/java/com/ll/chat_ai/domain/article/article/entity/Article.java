@@ -1,5 +1,6 @@
 package com.ll.chat_ai.domain.article.article.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ll.chat_ai.domain.article.articleComment.entity.ArticleComment;
 import com.ll.chat_ai.domain.article.articleTag.entity.ArticleTag;
 import com.ll.chat_ai.domain.member.member.entity.Member;
@@ -15,13 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor(access = PROTECTED)
-@NoArgsConstructor(access = PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
 public class Article extends BaseEntity {
@@ -31,11 +31,13 @@ public class Article extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member author;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true)
     @Builder.Default // 순환 참조 방지
     @ToString.Exclude
     private List<ArticleComment> comments = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article", cascade = ALL, orphanRemoval = true) // ferch = FetchType.LAZY
     @Builder.Default // 순환 참조 방지
     @ToString.Exclude

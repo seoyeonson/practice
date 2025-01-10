@@ -40,6 +40,10 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	runtimeOnly 'com.h2database:h2'
+
+	// 검증
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 }
 
 dependencyManagement {

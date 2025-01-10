@@ -7,7 +7,6 @@ import com.ll.chat_ai.domain.article.articleTag.entity.ArticleTag;
 import com.ll.chat_ai.domain.article.articleTag.service.ArticleTagService;
 import com.ll.chat_ai.domain.member.member.entity.Member;
 import com.ll.chat_ai.domain.member.member.service.MemberService;
-import com.ll.chat_ai.global.rsData.RsData;
 import com.ll.chat_ai.global.util.Ut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,8 +33,7 @@ class ArticleServiceTest {
     @DisplayName("글 쓰기")
     @Test
     void t1() {
-        RsData<Article> writeRs = articleService.write(1, "제목", "내용");
-        Article article = writeRs.getData();
+        Article article = articleService.write("제목", "내용");
 
         assertThat(article.getId()).isGreaterThan(0L);
     }
