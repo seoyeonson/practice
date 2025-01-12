@@ -31,6 +31,8 @@ public class ApiV1MemberController {
     @PostMapping("/login")
     public RsData<Void> login(@Valid @RequestBody MemberRequest memberRequest, HttpServletResponse response) {
         Member member = memberService.getMember(memberRequest.getUsername());
+
+        // 토큰 생성
         String token = jwtProvider.genAccessToken(member);
 
         // 응답 데이터에 accessToken 이름으로 토큰을 발급
@@ -40,6 +42,15 @@ public class ApiV1MemberController {
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60);
         response.addCookie(cookie);
+
+        String refreshToken = member.getRefreshToken();
+        Cookie refreshTokenCookie  = new Cookie("refreshToken", refreshToken);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(true);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setMaxAge(60 * 60);
+        response.addCookie(refreshTokenCookie);
+
         return new RsData<>("200", "로그인에 성공하였습니다.");
     }
 

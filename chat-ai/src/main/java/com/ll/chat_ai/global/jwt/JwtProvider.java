@@ -69,18 +69,6 @@ public class JwtProvider {
         return Ut.toMap(body);
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(getSecretKey())
-                    .build()
-                    .parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     // 유효성 검증
     public boolean verify (String token) {
         try {

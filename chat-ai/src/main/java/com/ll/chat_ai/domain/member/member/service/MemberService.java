@@ -33,7 +33,8 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .build());
-
+        String refreshToken = jwtProvider.genRefreshToken(member);
+        member.setRefreshToken(refreshToken);
         return memberRepository.save(member);
     }
 
@@ -47,17 +48,19 @@ public class MemberService {
 
     // 토큰 유효성 검증
     public boolean validateToken(String token) {
-        return jwtProvider.validateToken(token);
+        return jwtProvider.verify(token);
     }
 
-    // 토큰 갱신 (리프레쉬 토큰)
+    // 토큰갱신
     public RsData<String> refreshAccessToken(String refreshToken) {
         Member member = memberRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 토큰입니다."));
+
         String accessToken = jwtProvider.genAccessToken(member);
-        return new RsData<>("200", "토큰 갱신 성공", accessToken);
+
+        return new RsData<>("200", "토큰 갱신에 성공하였습니다.", accessToken);
     }
 
-    // 토큰으로 유저 정보 가져오기
+    // 토큰으로 User 정보 가져오기
     public SecurityUser getUserFromAccessToken(String accessToken) {
         Map<String, Object> payloadBody = jwtProvider.getClaims(accessToken);
         long id = (int) payloadBody.get("id");
