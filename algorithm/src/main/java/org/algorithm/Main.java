@@ -1,34 +1,36 @@
 package org.algorithm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
+
         Solution solution = new Solution();
+        int[] result = solution.solution(1,2,3,4);
+        Arrays.stream(result).forEach(System.out::println);
     }
 }
 
 class Solution {
-    static int check = 0;
 
     public int[] solution(int numer1, int denom1, int numer2, int denom2) {
-        int[] answer = {0, 0};
+        int numer = numer1*denom2 + numer2*denom1;
+        int denom = denom1*denom2;
+        int max = 1;
 
-        answer[0] = numer1 * denom2 + numer2 * denom1;
-        answer[1] = denom1 * denom2;
-
-        while (true) {
-            IntStream.range(2, answer[1]).forEach(i->{
-                if(answer[0]%i == 0 && answer[1]%i == 0){
-                    answer[0] = answer[0]/i;
-                    answer[1] = answer[1]/i;
-                } else {
-                    check++;
-                }
-            });
-
-            if(check != 0) {break;}
+        for(int i = 1; i<=numer && i<=denom; i++){
+            if(numer%i==0 && denom%i==0){
+                max = i;
+            }
         }
+
+        numer /= max;
+        denom /= max;
+
+        int[] answer = {numer,denom};
 
         return answer;
     }
