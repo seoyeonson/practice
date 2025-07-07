@@ -3,28 +3,33 @@ package org.algorithm.solution;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Day250705 {
+public class P42646_더맵게 {
     public static void main(String[] args) throws IOException {
-        // 우선순위 큐 (max, mini heap, )
+        // 문제: https://school.programmers.co.kr/learn/courses/30/lessons/42626
+        
+        // 문제 해석
+        // 우선순위 큐 (max, mini heap)
         // 예외처리가 많이 필요함
         // ex)
         // [1, 2, 3, 4, 5], k=100000이상이면 평생 안됌
 
 
+        // 공부 순서
         // 1. 힙 자료 구조 공부 : 우선순위 큐 (max, mini heap)
         // 2. AI한테 문제를 주면서 힌트를 달라고 한다.
         // 3. 혼자서 풀어본다. (30~1시간)
         // 4. 풀이과정을 받고 리뷰한다.
         // 5. https://school.programmers.co.kr/learn/courses/30/lessons/138477 풀고 리뷰쓰기
 
+        // 제한 사항
 //        scoville의 길이는 2 이상으로 1,000,000 이하입니다.
 //        K는 0 이상 1,000,000,000 이하입니다.
 //        scoville의 원소는 각각 0 이상 1,000,000 이하입니다.
 //        모든 음식의 스코빌 지수를 K 이상으로 만들 수 없는 경우에는 -1을 return 합니다.
 
+        // 입출력 결과
         // scoville = [1, 2, 3, 9, 10, 12]
         // k = 7
         // return = 2
@@ -39,7 +44,7 @@ public class Day250705 {
             s[i] = Integer.parseInt(br.readLine());
         }
 
-        Day250705 d = new Day250705();
+        P42646_더맵게 d = new P42646_더맵게();
         d.solution(s, k);
 
 
