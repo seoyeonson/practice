@@ -1,9 +1,7 @@
 package org.algorithm.solution;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class P42646_더맵게 {
     public static void main(String[] args) throws IOException {
@@ -44,36 +42,29 @@ public class P42646_더맵게 {
             s[i] = Integer.parseInt(br.readLine());
         }
 
-        P42646_더맵게 d = new P42646_더맵게();
-        d.solution(s, k);
+        System.out.println(solution(s, k));
 
 
     }
 
-    int solution(int[] scoville, int K) {
+    static int solution(int[] scoville, int K) {
         int answer = 0;
-        int temp = 0;
 
-        // scoville = [13, 6, 9, 10, 12]
-        // k = 7
-        // return = 2
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        // 맵지 않은 순으로 정렬 (내림차순)
-        for (int i = 0; i < scoville.length; i++) {
-            if(scoville[i] > scoville[i+1]) {
-                temp = scoville[i];
-                scoville[i] = scoville[i+1];
-            }
+        for(int s : scoville) {
+            pq.offer(s);
         }
 
-        while(true){
-            // 만약 1 번째 스코빌 지수가 k이하 이면
-            // 섞은 음식의 스코빌 지수 = 가장 맵지 않은 음식의 스코빌 지수 + (두 번째로 맵지 않은 음식의 스코빌 지수 * 2)
-            if (scoville[1] > K) { break; }
-            int a = scoville[1] + scoville[2] * 2;
-
+        while(pq.size() >= 2 && pq.peek() < K) {
+            int food1 = pq.poll();
+            int food2 = pq.poll();
+            pq.offer(food1 + food2*2);
             answer++;
         }
+
+        if (pq.peek() < K) return -1;
+
         return answer;
     }
 }
