@@ -44,16 +44,11 @@ public class P42627_디스크컨트롤러 {
     }
 
     static public int solution(int[][] jobs){
-        Arrays.sort(jobs, Comparator.comparingInt(j -> j[0])); // 요청 시각 기준 정렬
+        Arrays.sort(jobs, (a, b) -> Integer.compare(a[0], b[0])); // 요청 시각 기준 정렬
 
         PriorityQueue<Job> pq = new PriorityQueue<>();
 
-        return 0;
-    }
-}
-
-/*
-int time = 0; // 현재 시간
+        int time = 0; // 현재 시간
         int idx = 0; // jobs 베열 인덱스
         int total = 0; // 총 소요 시간
         int count = jobs.length;
@@ -77,4 +72,43 @@ int time = 0; // 현재 시간
         }
 
         return total / count;
-*/
+    }
+}
+
+/*
+import java.util.*;
+
+class Solution {
+    public int solution(int[][] jobs) {
+        Arrays.sort(jobs, Comparator.comparingInt(a -> a[0])); // 요청 시점 순 정렬
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]); // 작업시간 기준 정렬
+
+        int time = 0;      // 현재 시간
+        int idx = 0;       // jobs 인덱스
+        int totalTime = 0; // 총 작업 시간
+        int count = 0;     // 완료된 작업 수
+
+        while (count < jobs.length) {
+            // 현재 시간까지 요청된 모든 작업 PQ에 추가
+            while (idx < jobs.length && jobs[idx][0] <= time) {
+                pq.offer(jobs[idx]);
+                idx++;
+            }
+
+            if (!pq.isEmpty()) {
+                int[] job = pq.poll();
+                time += job[1]; // 작업 수행
+                totalTime += time - job[0]; // (끝난 시각 - 요청 시각)
+                count++;
+            } else {
+                // 대기 중인 작업이 없으면 다음 작업의 요청 시각으로 이동
+                time = jobs[idx][0];
+            }
+        }
+
+        return totalTime / jobs.length;
+    }
+}
+
+ */
