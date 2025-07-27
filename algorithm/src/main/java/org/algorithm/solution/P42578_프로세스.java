@@ -4,18 +4,13 @@ import java.io.*;
 import java.util.*;
 
 public class P42578_프로세스 {
-    static public class Process implements Comparable<Process> {
+    static class Process {
         int priority;
         int idx;
 
         public Process(int priority, int idx){
             this.priority = priority;
             this.idx = idx;
-        }
-
-        @Override
-        public int compareTo(Process p){
-            return Integer.compare(p.priority, this.priority); // 우선순위 내림차순
         }
     }
     public static void main(String[] args) throws IOException{
@@ -37,29 +32,31 @@ public class P42578_프로세스 {
             priorities[i] = Integer.parseInt(br.readLine());
         }
 
-        Queue<Process> q = new LinkedList<>(); // 문서 관리 큐
-        PriorityQueue<Process> pq = new PriorityQueue<>(); // 우선순위 큐 (판단용)
+        Queue<Process> q = new LinkedList<>(); // 큐: 문서 순서 유지
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); // 우선순위 큐: 가장 높은 우선순위 추적
+
         for (int i = 0; i < priorities.length; i++) {
-            Process p = new Process(priorities[i], i);
-            q.offer(p);
-            pq.offer(p);
+            q.offer(new Process(priorities[i], i));
+            pq.offer(priorities[i]);
         }
 
         int count = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             Process current = q.poll();
-            if(current.priority != pq.peek().priority){
-                q.offer(current);
+
+            if (current.priority < pq.peek()) {
+                q.offer(current); // 우선순위가 낮으면 다시 뒤로
             } else {
-                pq.poll();
+                pq.poll(); // 출력됨
                 count++;
 
-                if(current.idx == location) break;
+                if (current.idx == location) {
+                    System.out.println(count);
+                    break;
+                }
             }
         }
-
-        System.out.println(count);
     }
 }
 
